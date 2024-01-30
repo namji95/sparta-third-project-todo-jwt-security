@@ -7,6 +7,7 @@ import com.namji.todolist.service.TodoService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -26,5 +27,10 @@ public class TodoController {
     @GetMapping("/todo")
     public List<Todo> getTodo () {
         return todoService.getTodo();
+    }
+
+    @GetMapping("/todo/{id}")
+    public Optional<Todo> selectSchedule(@PathVariable Long id) {
+        return todoService.selectSchedule(id);
     }
 }
