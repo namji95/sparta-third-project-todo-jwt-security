@@ -33,4 +33,14 @@ public class TodoController {
     public Optional<Todo> selectSchedule(@PathVariable Long id) {
         return todoService.selectSchedule(id);
     }
+
+    @PutMapping("/todo/{id}")
+    public TodoResponseDto updateTodo(@PathVariable Long id, @RequestBody TodoRequestDto requestDto) {
+        return todoService.updateTodo(id, requestDto);
+    }
+
+    @DeleteMapping("/todo/{id}")
+    public String deleteTodo (@PathVariable Long id) {
+        return todoService.deleteTodo(id);
+    }
 }

@@ -4,7 +4,6 @@ import com.namji.todolist.dto.TodoRequestDto;
 import com.namji.todolist.dto.TodoResponseDto;
 import com.namji.todolist.entity.Todo;
 import com.namji.todolist.repository.TodoRepository;
-import org.aspectj.weaver.patterns.ThisOrTargetAnnotationPointcut;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,5 +43,29 @@ public class TodoService {
         });
 
         return todoRepository.findById(todo.getId());
+    }
+
+    public TodoResponseDto updateTodo(Long id, TodoRequestDto requestDto) {
+        Todo todo = todoRepository.findById(id).orElseThrow(() -> {
+            throw new IllegalArgumentException("존재하는 아이디가 없습니다 : " + id);
+        });
+
+        todo.update(requestDto);
+
+        Todo updateTodo = todoRepository.save(todo);
+
+        TodoResponseDto responseDto = new TodoResponseDto(updateTodo);
+
+        return responseDto;
+    }
+
+    public String deleteTodo(Long id) {
+        Todo todo = todoRepository.findById(id).orElseThrow(() -> {
+            throw new IllegalArgumentException("존재하지 않는 아이디 입니다 : " + id);
+        });
+
+        todoRepository.delete(todo);
+
+        return "해당 아이디가 삭제되었습니다.";
     }
 }
