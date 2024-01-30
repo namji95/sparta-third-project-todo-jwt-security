@@ -6,6 +6,8 @@ import com.namji.todolist.entity.Todo;
 import com.namji.todolist.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TodoService {
 
@@ -26,5 +28,9 @@ public class TodoService {
         TodoResponseDto todoResponseDto = new TodoResponseDto(saveTodo);
 
         return todoResponseDto;
+    }
+
+    public List<Todo> getTodo() {
+        return todoRepository.findAll();
     }
 }
